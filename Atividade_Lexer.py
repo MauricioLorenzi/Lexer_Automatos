@@ -25,19 +25,20 @@ class GUI:
 
     def executelexer(self):
         f = open(pathlabel["text"], 'r')
-        expreg = f.read()
+        expreg = f.read().replace("\n", "").replace(" ", "")
+        print(expreg)
         lx = Lexer(rules, skip_whitespace=True)
         lx.input(expreg)
 
-        response = []
+        response = list()
         try:
             for tok in lx.tokens():
-                response.append(tok.__str__())
+                response.append(tok.type)
 
         except LexerError as err:
             self.errormessage('Erro na posição: %s' % err.pos)
 
-        if not response:
+        if response.__len__() == 0:
             self.errormessage("Arquivo de codigo em branco!")
         else:
             self.successmessage(response)
@@ -122,7 +123,7 @@ if __name__ == '__main__':
         ('and',            'AND'),
         ('or',             'OR'),
        # ('not',            'NEGAÇÃO (NOT)'),
-        ('\,',              'INÍCIO DE BLOCO'),
+        ('\,',              'INICIO DE BLOCO'),
         ('\.',              'FIM DE BLOCO'),
         ('if',             'IF'),
         ('int',            'TIPO DE VARIÁVEL'),
@@ -138,13 +139,13 @@ if __name__ == '__main__':
         ('\/',             '/'),
         ('\(',             '('),
         ('\)',             ')'),
-        ('=',              '='),
-        ('==',              '=='),
-        ('!=',             '!='),
-        ('<=',             '<='),
-        ('>=',             '>='),
-        ('>',              '>'),
-        ('<',              '<'),
+        ('\=',              '='),
+        ('\==',             '=='),
+        ('\!=',             '!='),
+        ('\<=',             '<='),
+        ('\>=',             '>='),
+        ('\>',              '>'),
+        ('\<',              '<'),
     ]
 
     interface = GUI()
