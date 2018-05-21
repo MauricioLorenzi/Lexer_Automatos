@@ -26,7 +26,6 @@ class GUI:
     def executelexer(self):
         f = open(pathlabel["text"], 'r')
         expreg = f.read().replace("\n", "").replace(" ", "")
-        print(expreg)
         lx = Lexer(rules, skip_whitespace=True)
         lx.input(expreg)
 
@@ -113,7 +112,8 @@ class Lexer(object):
     def tokens(self):
         while 1:
             tok = self.token()
-            if tok is None: break
+            if tok is None:
+                break
             yield tok
 
 
@@ -122,30 +122,28 @@ if __name__ == '__main__':
         ('\d+',            'LITERAL'),
         ('and',            'AND'),
         ('or',             'OR'),
-       # ('not',            'NEGAÇÃO (NOT)'),
         ('\,',              'INICIO DE BLOCO'),
         ('\.',              'FIM DE BLOCO'),
         ('if',             'IF'),
         ('int',            'TIPO DE VARIÁVEL'),
-        #('then',           'ENTÃO (THEN)'),
         ('else',           'ELSE'),
         ('while',          'WHILE'),
         ('do',             'DO'),
         ('end',            'END'),
-        ('[a-zA-Z_]\w+',   'IDENTIFICADOR'),
-        ('\+',             '+'),
-        ('\-',             '-'),
-        ('\*',             '*'),
-        ('\/',             '/'),
-        ('\(',             '('),
-        ('\)',             ')'),
-        ('\=',              '='),
-        ('\==',             '=='),
-        ('\!=',             '!='),
-        ('\<=',             '<='),
-        ('\>=',             '>='),
-        ('\>',              '>'),
-        ('\<',              '<'),
+        ('[a-zA-Z_]*\w+',   'IDENTIFICADOR'),
+        ('\+',             'OPERADOR DE ADIÇÃO'),
+        ('\-',             'OPERADOR DE SUBTRAÇÃO'),
+        ('\*',             'OPERADOR DE MULTIPLICAÇÃO'),
+        ('\/',             'OPERADOR DE DIVISÃO'),
+        ('\(',             'PARÊNTESES ESQUERDO'),
+        ('\)',             'PARÊNTESES DIREITO'),
+        ('\=',              'OPERADOR DE ATRIBUIÇÃO'),
+        ('\==',             'OPERADOR DE EQUIVALÊNCIA'),
+        ('\!=',             'OPERADOR DE DIFERENÇA'),
+        ('\<=',             'OPERADOR MENOR IGUAL'),
+        ('\>=',             'OPERADOR MAIOR IGUAL'),
+        ('\>',              'OPERADOR MAIOR'),
+        ('\<',              'OPERADOR MENOR'),
     ]
 
     interface = GUI()
